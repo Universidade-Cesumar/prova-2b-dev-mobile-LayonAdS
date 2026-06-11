@@ -131,4 +131,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  padding: 10,
+  marginBottom: 10,
+},
+
+button: {
+  backgroundColor: '#007BFF',
+  padding: 12,
+  borderRadius: 8,
+  marginBottom: 20,
+},
+
+buttonText: {
+  color: '#fff',
+  textAlign: 'center',
+  fontWeight: 'bold',
+},
 });

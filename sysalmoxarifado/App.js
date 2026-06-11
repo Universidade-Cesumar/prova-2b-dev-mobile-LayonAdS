@@ -42,6 +42,47 @@ async function carregarMateriais() {
   }
 }
 
+async function cadastrarMaterial() {
+// Envia um novo material para a MockAPI.
+// Verifica se os campos foram preenchidos
+  if (!nome || !quantidade) {
+    alert('Preencha todos os campos');
+    return;
+  }
+
+  try {
+
+    // Objeto que será enviado para API
+    const novoMaterial = {
+      nome,
+      quantidade
+    };
+
+    // Requisição POST
+    await fetch(API_URL, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify(novoMaterial)
+    });
+
+    // Limpa os campos após cadastrar
+    setNome('');
+    setQuantidade('');
+
+    // Atualiza a lista
+    carregarMateriais();
+
+  } catch (error) {
+
+    console.log(error);
+  }
+}
+
+
 return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>

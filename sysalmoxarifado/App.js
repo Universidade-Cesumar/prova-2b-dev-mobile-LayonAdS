@@ -82,6 +82,12 @@ async function cadastrarMaterial() {
   }
 }
 
+// Busca os materiais cadastrados na API.
+useEffect(() => {
+  carregarMateriais();
+}, []); 
+// Executa automaticamente quando a tela é aberta.
+
 
 return (
     <View style={styles.container}>

@@ -88,41 +88,66 @@ export default function App() {
   }, []);
   // Executa automaticamente quando a tela é aberta.
 
-return (
-  <View style={styles.container}>
+  return (
+    <View style={styles.container}>
 
-    <TextInput
-      testID="input-nome"
-      placeholder="Nome do Material"
-      value={nome}
-      onChangeText={setNome}
-      style={styles.input}
-    />
+      <TextInput
+        testID="input-nome"
+        placeholder="Nome do Material"
+        value={nome}
+        onChangeText={setNome}
+        style={styles.input}
+      />
 
-    <TextInput
-      testID="input-quantidade"
-      placeholder="Quantidade"
-      value={quantidade}
-      onChangeText={setQuantidade}
-      keyboardType="numeric"
-      style={styles.input}
-    />
+      <TextInput
+        testID="input-quantidade"
+        placeholder="Quantidade"
+        value={quantidade}
+        onChangeText={setQuantidade}
+        keyboardType="numeric"
+        style={styles.input}
+      />
 
-    <TouchableOpacity
-      testID="btn-cadastrar"
-      onPress={cadastrarMaterial}
-      style={styles.button}
-    >
-      <Text style={styles.buttonText}>
-        Cadastrar Material
-      </Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        testID="btn-cadastrar"
+        onPress={cadastrarMaterial}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>
+          Cadastrar Material
+        </Text>
+      </TouchableOpacity>
 
-    <StatusBar style="auto" />
+      {loading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <FlatList
+          testID="lista-materiais"
+          data={materiais}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.itemTitle}>
+                {item.nome}
+              </Text>
 
-  </View>
-);
+              <Text>
+                Quantidade: {item.quantidade}
+              </Text>
+            </View>
+          )}
+        />
+      )}
+
+      <StatusBar style="auto" />
+
+    </View>
+  );
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -132,23 +157,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  padding: 10,
-  marginBottom: 10,
-},
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+  },
 
-button: {
-  backgroundColor: '#007BFF',
-  padding: 12,
-  borderRadius: 8,
-  marginBottom: 20,
-},
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
 
-buttonText: {
-  color: '#fff',
-  textAlign: 'center',
-  fontWeight: 'bold',
-},
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  
 });

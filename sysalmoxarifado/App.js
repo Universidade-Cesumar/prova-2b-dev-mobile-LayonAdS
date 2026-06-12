@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
+    paddingHorizontal: 20,
   },
   input: {
     borderWidth: 1,
@@ -176,5 +176,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  
+  card: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
+    width: '100%',
+  },
+
+  itemTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
 });

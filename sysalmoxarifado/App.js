@@ -17,6 +17,7 @@ export default function App() {
   const [quantidade, setQuantidade] = useState(''); // Armazena a quantidade digitada
   const [materiais, setMateriais] = useState([]); // Armazena a lista de materiais vindos da API
   const [loading, setLoading] = useState(false); // Controla o indicador de carregamento
+  const [retiradas, setRetiradas] = useState({}); // Armazena as quantidades a serem retiradas para cada material
 
   // Endereço da MockAPI.
   // Todas as requisições GET e POST serão feitas para esta URL.
@@ -135,6 +136,7 @@ export default function App() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.card}>
+
               <Text style={styles.itemTitle}>
                 {item.nome}
               </Text>
@@ -142,6 +144,20 @@ export default function App() {
               <Text>
                 Quantidade: {item.quantidade}
               </Text>
+
+              <TextInput
+                testID="input-retirada"
+                placeholder="Quantidade para retirada"
+                keyboardType="numeric"
+                style={styles.input}
+                onChangeText={(texto) =>
+                  setRetiradas({
+                    ...retiradas,
+                    [item.id]: texto
+                  })
+                }
+              />
+
             </View>
           )}
         />

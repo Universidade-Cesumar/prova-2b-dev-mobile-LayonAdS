@@ -214,6 +214,24 @@ export default function App() {
                   })
                 }
               />
+              <TouchableOpacity
+                testID="btn-baixar"
+                style={styles.button}
+                onPress={() => baixarEstoque(item)}
+              >
+                <Text style={styles.buttonText}>
+                  Baixar Estoque
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                testID="btn-excluir"
+                style={styles.deleteButton}
+                onPress={() => excluirMaterial(item.id)}
+              >
+                <Text style={styles.buttonText}>
+                  Excluir Material
+                </Text>
+              </TouchableOpacity>
 
             </View>
           )}

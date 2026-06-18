@@ -3,6 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 // importação das bilbiotecas necessárias para o funcionamento do aplicativo
 
+// Função obrigatória para validar a retirada de estoque
+export function validarRetirada(estoqueAtual, quantidadeRetirada) {
+  return (
+    quantidadeRetirada > 0 &&
+    quantidadeRetirada <= estoqueAtual
+  );
+}
+
 export default function App() {
 
   const [nome, setNome] = useState('');  // Armazena o nome digitado no formulário

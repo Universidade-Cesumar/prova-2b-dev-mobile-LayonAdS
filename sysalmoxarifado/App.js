@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
-// importação das bilbiotecas necessárias para o funcionamento do aplicativo
+// importação das bibliotecas necessárias para o funcionamento do aplicativo
 
 // Função obrigatória para validar a retirada de estoque
 export function validarRetirada(estoqueAtual, quantidadeRetirada) {
@@ -24,6 +24,7 @@ export default function App() {
   const API_URL = 'https://6a18c28d23c3626470abfea4.mockapi.io/api/v1/Materiais';
 
   async function carregarMateriais() {
+
     // Busca todos os materiais cadastrados na MockAPI.
     try {
 
@@ -142,6 +143,10 @@ export default function App() {
       });
 
       carregarMateriais();
+      setRetiradas({
+        ...retiradas,
+        [item.id]: ''
+      });
 
     } catch (error) {
       console.log(error);
@@ -156,6 +161,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+
 
       <TextInput
         testID="input-nome"
@@ -187,108 +193,146 @@ export default function App() {
       {loading ? (
         <ActivityIndicator size="large" />
       ) : (
-        <FlatList
-          testID="lista-materiais"
-          data={materiais}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
+        <>
+          
 
-              <Text style={styles.itemTitle}>
-                {item.nome}
-              </Text>
+          <FlatList
+            testID="lista-materiais"
+            data={materiais}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
 
-              <Text>
-                Quantidade: {item.quantidade}
-              </Text>
-
-              <TextInput
-                testID="input-retirada"
-                placeholder="Quantidade para retirada"
-                keyboardType="numeric"
-                style={styles.input}
-                onChangeText={(texto) =>
-                  setRetiradas({
-                    ...retiradas,
-                    [item.id]: texto
-                  })
-                }
-              />
-              <TouchableOpacity
-                testID="btn-baixar"
-                style={styles.button}
-                onPress={() => baixarEstoque(item)}
-              >
-                <Text style={styles.buttonText}>
-                  Baixar Estoque
+                <Text style={styles.itemTitle}>
+                  {item.nome}
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                testID="btn-excluir"
-                style={styles.deleteButton}
-                onPress={() => excluirMaterial(item.id)}
-              >
-                <Text style={styles.buttonText}>
-                  Excluir Material
-                </Text>
-              </TouchableOpacity>
 
-            </View>
-          )}
-        />
+                <Text>
+                  Quantidade: {item.quantidade}
+                </Text>
+
+                <TextInput
+                  testID="input-retirada"
+                  placeholder="Quantidade para retirada"
+                  keyboardType="numeric"
+                  style={styles.input}
+                  value={retiradas[item.id] || ''}
+                  onChangeText={(texto) =>
+                    setRetiradas({
+                      ...retiradas,
+                      [item.id]: texto
+                    })
+                  }
+                />
+                <TouchableOpacity
+                  testID="btn-baixar"
+                  style={styles.button}
+                  onPress={() => baixarEstoque(item)}
+                >
+                  <Text style={styles.buttonText}>
+                    Baixar Estoque
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  testID="btn-excluir"
+                  style={styles.deleteButton}
+                  onPress={() => excluirMaterial(item.id)}
+                >
+                  <Text style={styles.buttonText}>
+                    Excluir Material
+                  </Text>
+                </TouchableOpacity>
+
+              </View>
+            )}
+          />
+          <StatusBar style="auto" />
+        </>
       )}
 
-      <StatusBar style="auto" />
-
-    </View>
-  );
+        </View>
+      );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 50,
-    paddingHorizontal: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-  },
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          backgroundColor: '#F6F8FF',
+          paddingTop: 60,
+          paddingHorizontal: 18,
+        },
 
-  button: {
-    backgroundColor: '#007BFF',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
+        header: {
+          backgroundColor: '#0B63D6',
+          padding: 14,
+          borderRadius: 10,
+          marginBottom: 14,
+        },
 
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  card: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 10,
-    width: '100%',
-  },
+        title: {
+          fontSize: 20,
+          fontWeight: '700',
+          color: '#ffffff',
+          textAlign: 'center',
+        },
 
-  itemTitle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  deleteButton: {
-    backgroundColor: '#dc3545',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 10,
-  },
+        description: {
+          fontSize: 14,
+          color: '#556070',
+          textAlign: 'center',
+          lineHeight: 20,
+          marginBottom: 18,
+        },
 
-});
+        input: {
+          borderWidth: 1,
+          borderColor: '#E6EAF0',
+          backgroundColor: '#FFFFFF',
+          borderRadius: 10,
+          padding: 12,
+          marginBottom: 10,
+        },
+
+        button: {
+          backgroundColor: '#0B63D6',
+          padding: 14,
+          borderRadius: 10,
+          marginBottom: 12,
+          alignItems: 'center',
+        },
+
+        buttonText: {
+          color: '#fff',
+          textAlign: 'center',
+          fontWeight: '700',
+        },
+
+        card: {
+          backgroundColor: '#FFFFFF',
+          borderRadius: 10,
+          padding: 14,
+          marginBottom: 12,
+          width: '100%',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.08,
+          shadowRadius: 6,
+          elevation: 3,
+        },
+
+        itemTitle: {
+          fontWeight: '700',
+          fontSize: 16,
+          marginBottom: 6,
+          color: '#222',
+        },
+
+        deleteButton: {
+          backgroundColor: '#DC3545',
+          padding: 12,
+          borderRadius: 10,
+          marginTop: 8,
+          alignItems: 'center',
+        },
+
+      });

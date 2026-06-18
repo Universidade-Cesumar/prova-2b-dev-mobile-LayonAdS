@@ -99,3 +99,27 @@ Layon Augusto
 
 Projeto desenvolvido para a disciplina de Desenvolvimento Mobile.
 
+---
+
+## 📝 Atualizações (2026-06-18)
+
+Hoje foram feitas correções e melhorias importantes no projeto:
+
+- Corrigido o ponto de entrada do Expo para usar o `App` localizado em `sysalmoxarifado/App.js` (arquivo `index.js` atualizado).
+- Removido um `console.log` inválido em `sysalmoxarifado/App.js` que causava erro de compilação.
+- Melhorias de UI/UX: atualizei os estilos em `sysalmoxarifado/App.js` para um visual mais limpo e responsivo (cores, espaçamento, botões arredondados, cartões com sombra).
+- Ajuste no campo de retirada para evitar avisos de componente controlado/ não-controlado (`value={retiradas[item.id] || ''}`).
+
+Commit realizado: "Estilização: melhorar UI em sysalmoxarifado/App.js" (inclui `index.js` e `sysalmoxarifado/App.js`).
+
+Para ver as mudanças localmente (recomendo limpar cache do Expo):
+
+```bash
+npx expo start -c
+```
+
+Se quiser que eu continue, posso:
+
+- alinhar os botões de ação (`Baixar` e `Excluir`) lado a lado;
+- atualizar a tela inicial raiz para redirecionar automaticamente para o `sysalmoxarifado`.
+

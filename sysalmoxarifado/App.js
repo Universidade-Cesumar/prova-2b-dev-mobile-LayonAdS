@@ -90,6 +90,48 @@ export default function App() {
       console.log(error);
     }
   }
+  async function baixarEstoque(item) {
+
+    const quantidadeRetirada =
+      Number(retiradas[item.id] || 0);
+
+    const estoqueAtual =
+      Number(item.quantidade);
+
+    if (
+      !validarRetirada(
+        estoqueAtual,
+        quantidadeRetirada
+      )
+    ) {
+      alert('Quantidade inválida!');
+      return;
+    }
+
+    const novoEstoque =
+      estoqueAtual - quantidadeRetirada;
+
+    try {
+
+      await fetch(`${API_URL}/${item.id}`, {
+        method: 'PUT',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+          nome: item.nome,
+          quantidade: novoEstoque
+        })
+      });
+
+      carregarMateriais();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // Busca os materiais cadastrados na API.
   useEffect(() => {

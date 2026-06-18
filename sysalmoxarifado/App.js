@@ -90,6 +90,21 @@ export default function App() {
       console.log(error);
     }
   }
+
+  async function excluirMaterial(id) {
+    try {
+
+      await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE'
+      });
+
+      carregarMateriais();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function baixarEstoque(item) {
 
     const quantidadeRetirada =

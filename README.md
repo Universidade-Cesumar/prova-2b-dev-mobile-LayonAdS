@@ -99,3 +99,20 @@ Layon Augusto
 
 Projeto desenvolvido para a disciplina de Desenvolvimento Mobile.
 
+---
+
+## 🌙 Missão da Noite (2026-06-18)
+
+Criar o módulo de retirada (baixa rápida de estoque) direto na lista de materiais e a opção de exclusão, garantindo por lógica de estado que o sistema impossibilite saídas que resultem em estoque negativo.
+
+Contrato Técnico OBRIGATÓRIO (Para o Autograding)
+
+Utilize as seguintes propriedades em cada linha:
+
+- TextInput interno para informar a quantidade a retirar: testID="input-retirada"
+- TouchableOpacity para confirmar a baixa (PUT): testID="btn-baixar"
+- TouchableOpacity para deletar o item (DELETE): testID="btn-excluir"
+- Função JavaScript Obrigatória: Crie e exporte exatamente uma função pura chamada validarRetirada(estoqueAtual, quantidadeRetirada) que retorne true se a operação for permitida, e false se for inválida (ex: tirar 10 unidades de onde só existem 5).
+
+***
+

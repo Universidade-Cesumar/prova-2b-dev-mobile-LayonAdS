@@ -18,6 +18,7 @@ export default function App() {
   const [materiais, setMateriais] = useState([]); // Armazena a lista de materiais vindos da API
   const [loading, setLoading] = useState(false); // Controla o indicador de carregamento
   const [retiradas, setRetiradas] = useState({}); // Armazena as quantidades a serem retiradas para cada material
+  const [busca, setBusca] = useState(''); // Armazena o texto digitado na pesquisa
 
   // Endereço da MockAPI.
   // Todas as requisições GET e POST serão feitas para esta URL.
@@ -42,8 +43,9 @@ export default function App() {
 
     } catch (error) {
 
-      // Exibe erro no console
+      // Exibe erro no console e alerta amigável
       console.log(error);
+      alert('Erro de conexão. Tente novamente.');
 
     } finally {
 
@@ -89,6 +91,7 @@ export default function App() {
     } catch (error) {
 
       console.log(error);
+      alert('Erro de conexão. Tente novamente.');
     }
   }
 
@@ -103,6 +106,7 @@ export default function App() {
 
     } catch (error) {
       console.log(error);
+      alert('Erro de conexão. Tente novamente.');
     }
   }
 
@@ -150,6 +154,7 @@ export default function App() {
 
     } catch (error) {
       console.log(error);
+      alert('Erro de conexão. Tente novamente.');
     }
   }
 
@@ -158,6 +163,10 @@ export default function App() {
     carregarMateriais();
   }, []);
   // Executa automaticamente quando a tela é aberta.
+
+  const materiaisFiltrados = materiais.filter((item) =>
+    item.nome.toLowerCase().includes(busca.toLowerCase())
+  );
 
   return (
     <View style={styles.container}>
@@ -190,6 +199,21 @@ export default function App() {
         </Text>
       </TouchableOpacity>
 
+      <TextInput
+        testID="input-busca"
+        placeholder="Pesquisar material..."
+        value={busca}
+        onChangeText={setBusca}
+        style={styles.input}
+      />
+
+      <Text
+        testID="total-itens"
+        style={styles.total}
+      >
+        Total de materiais: {materiaisFiltrados.length}
+      </Text>
+
       {loading ? (
         <ActivityIndicator size="large" />
       ) : (
@@ -198,10 +222,20 @@ export default function App() {
 
           <FlatList
             testID="lista-materiais"
-            data={materiais}
+            data={materiaisFiltrados}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View style={styles.card}>
+              <View
+                style={[
+                  styles.card,
+                  Number(item.quantidade) < 10 && styles.cardCritico,
+                ]}
+                accessibilityLabel={
+                  Number(item.quantidade) < 10
+                    ? 'estoque-critico'
+                    : undefined
+                }
+              >
 
                 <Text style={styles.itemTitle}>
                   {item.nome}
@@ -325,6 +359,19 @@ export default function App() {
           fontSize: 16,
           marginBottom: 6,
           color: '#222',
+        },
+
+        total: {
+          fontSize: 18,
+          fontWeight: 'bold',
+          marginBottom: 15,
+          color: '#1D2939',
+        },
+
+        cardCritico: {
+          backgroundColor: '#ffd6d6',
+          borderColor: 'red',
+          borderWidth: 2,
         },
 
         deleteButton: {

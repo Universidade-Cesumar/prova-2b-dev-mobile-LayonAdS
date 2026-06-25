@@ -1,83 +1,73 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/jOw_Hzd7)
-
 # 🏥 Sistema de Almoxarifado - Enfermagem
 
 ## 📋 Sobre o Projeto
 
-Este projeto foi desenvolvido com **React Native** e **Expo** com o objetivo de modernizar o controle de estoque de materiais utilizados no laboratório de enfermagem.
-
-A aplicação permite o cadastro e a visualização de materiais em tempo real através da integração com uma **MockAPI**, facilitando o gerenciamento de insumos e reduzindo erros de controle manual.
+Este projeto é um aplicativo de controle de estoque desenvolvido com **React Native** e **Expo**. Ele foi criado para tornar o gerenciamento de materiais mais prático e seguro, com cadastro, busca em tempo real, indicadores visuais de estoque crítico e tratamento de erros de rede.
 
 ---
 
-## 🎯 Objetivos
+## 🎯 Objetivo
 
-* Registrar novos materiais no estoque.
-* Consultar os materiais cadastrados.
-* Atualizar a listagem automaticamente ao iniciar o aplicativo.
-* Simular uma aplicação real de controle de almoxarifado utilizando API REST.
+Permitir o cadastro de materiais, visualização da quantidade disponível, baixa de estoque e exclusão de itens. O app também exibe apenas os materiais filtrados pela pesquisa e sinaliza visualmente quando o estoque está crítico.
 
 ---
 
 ## 🛠 Tecnologias Utilizadas
 
-* React Native
-* Expo
-* JavaScript
-* MockAPI
-* Git e GitHub
+- React Native
+- Expo
+- JavaScript
+- MockAPI
+- Git e GitHub
 
 ---
 
-## 📱 Funcionalidades
+## 🚀 Funcionalidades
 
-### Cadastro de Materiais
-
-O usuário pode informar:
-
-* Nome do material
-* Quantidade disponível
-
-Ao clicar no botão **Cadastrar Material**, os dados são enviados para a MockAPI através de uma requisição HTTP POST.
-
-### Listagem de Materiais
-
-Ao abrir o aplicativo, uma requisição HTTP GET é realizada automaticamente utilizando o Hook `useEffect`, carregando todos os materiais cadastrados na API e exibindo-os em uma `FlatList`.
-
-### Indicador de Carregamento
-
-Durante o carregamento das informações, um `ActivityIndicator` é exibido para melhorar a experiência do usuário.
+- Cadastro de material com nome e quantidade
+- Listagem automática de materiais ao abrir o app
+- Pesquisa em tempo real com `TextInput` usando `testID="input-busca"`
+- Totalizador dinâmico com `Text` usando `testID="total-itens"`
+- Indicador visual de estoque crítico para materiais com quantidade menor que 10
+- Tratamento de erros de rede com mensagens amigáveis ao usuário
+- Baixa de estoque e exclusão de materiais
 
 ---
 
-## 🔗 API Utilizada
+## 🔎 Controles Importantes
 
-MockAPI utilizada para simulação do banco de dados:
-
-https://6a18c28d23c3626470abfea4.mockapi.io/api/v1/Materiais
-
----
-
-## 📂 Estrutura da Aplicação
-
-* **TextInput** para cadastro do nome do material.
-* **TextInput** para cadastro da quantidade.
-* **TouchableOpacity** para envio dos dados.
-* **FlatList** para exibição dos materiais cadastrados.
-* **useEffect** para carregamento automático dos dados.
-* **Fetch API** para comunicação com a MockAPI.
+- `input-nome`: campo para nome do material
+- `input-quantidade`: campo para quantidade do material
+- `btn-cadastrar`: botão para cadastrar material
+- `input-busca`: campo de busca em tempo real
+- `total-itens`: totalizador dos materiais exibidos
+- `lista-materiais`: lista de materiais filtrados
+- `input-retirada`: campo para informar quantidade de baixa
+- `btn-baixar`: botão para baixar estoque
+- `btn-excluir`: botão para excluir material
+- `estoque-critico`: `accessibilityLabel` aplicado ao card com estoque crítico
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 📱 Capturas de Tela
 
-### Instalar dependências
+Insira abaixo as capturas de tela do aplicativo funcionando. Se possível, salve as imagens em uma pasta `screenshots/` e adicione os links aqui:
+
+- `screenshots/1-app-lista.png`
+- `screenshots/2-app-pesquisa.png`
+- `screenshots/3-app-estoque-critico.png`
+
+---
+
+## 🧪 Instalação e Execução
+
+### 1. Instalar dependências
 
 ```bash
 npm install
 ```
 
-### Executar o projeto
+### 2. Iniciar o Expo
 
 ```bash
 npx expo start
@@ -89,7 +79,17 @@ ou
 npm start
 ```
 
-Após iniciar o Expo, utilize um emulador Android, iOS ou o aplicativo Expo Go para visualizar a aplicação.
+### 3. Abrir no dispositivo
+
+Use um emulador Android, iOS ou o aplicativo Expo Go para abrir o projeto.
+
+---
+
+## 📄 API Utilizada
+
+MockAPI utilizada para simulação do banco de dados:
+
+https://6a18c28d23c3626470abfea4.mockapi.io/api/v1/Materiais
 
 ---
 
@@ -101,18 +101,13 @@ Projeto desenvolvido para a disciplina de Desenvolvimento Mobile.
 
 ---
 
-## 🌙 Missão da Noite (2026-06-18)
+## 📌 Observações de Avaliação
 
-Criar o módulo de retirada (baixa rápida de estoque) direto na lista de materiais e a opção de exclusão, garantindo por lógica de estado que o sistema impossibilite saídas que resultem em estoque negativo.
+- O filtro está em tempo real e atualiza a lista de materiais.
+- O totalizador exibe a quantidade de itens visíveis após a busca.
+- O componente de estoque crítico aplica estilo visual e acessibilidade quando a quantidade é menor que 10.
+- As requisições de rede usam `try/catch` e exibem alertas amigáveis para falhas.
 
-Contrato Técnico OBRIGATÓRIO (Para o Autograding)
-
-Utilize as seguintes propriedades em cada linha:
-
-- TextInput interno para informar a quantidade a retirar: testID="input-retirada"
-- TouchableOpacity para confirmar a baixa (PUT): testID="btn-baixar"
-- TouchableOpacity para deletar o item (DELETE): testID="btn-excluir"
-- Função JavaScript Obrigatória: Crie e exporte exatamente uma função pura chamada validarRetirada(estoqueAtual, quantidadeRetirada) que retorne true se a operação for permitida, e false se for inválida (ex: tirar 10 unidades de onde só existem 5).
 
 ***
 
